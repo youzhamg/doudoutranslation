@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "纯净私密·全动态多语言双语翻译",
+  "version": "19.0.8",
+  "description": "全网视频双语字幕、网页双语翻译、PDF学术伴读助手（原生独立扩展版）",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.youtube.com/*"],
+      "js": ["inject.js"],
+      "world": "MAIN",
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "libs/purify.min.js",
+        "libs/pdf.min.js",
+        "content.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": true
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "libs/pdf.worker.min.js"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
